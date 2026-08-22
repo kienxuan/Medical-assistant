@@ -1,0 +1,48 @@
+# CELL 1 - IMPORT LIBRARIES
+
+import os
+import glob
+import numpy as np                      # Thư viện tính toán đại số và xử lý mảng nhiều chiều
+import pandas as pd                     # Thư viện xử lý và phân tích dữ liệu dạng bảng (Dataframe)
+import matplotlib.pyplot as plt         # Thư viện vẽ biểu đồ và trực quan hóa dữ liệu
+
+# Tiền xử lý dữ liệu: Chuẩn hóa dữ liệu theo phân phối chuẩn (mean=0, std=1)
+from sklearn.preprocessing import StandardScaler
+
+# Các chỉ số để đánh giá hiệu năng mô hình phân loại (Classification Metrics)
+from sklearn.metrics import (
+    accuracy_score,        # Độ chính xác tổng thể
+    precision_score,       # Độ chính xác trên các dự đoán dương tính (Precision)
+    recall_score,          # Độ nhạy / Tỷ lệ tìm kiếm đúng (Recall)
+    f1_score,              # Điểm F1 (trung bình điều hòa giữa Precision và Recall)
+    classification_report, # Báo cáo tổng hợp các chỉ số phân loại theo từng lớp
+    confusion_matrix,      # Ma trận nhầm lẫn
+    ConfusionMatrixDisplay # Công cụ hiển thị trực quan ma trận nhầm lẫn
+)
+
+import tensorflow as tf                  # Framework xây dựng và huấn luyện mô hình Deep Learning
+
+# Khai báo các thành phần của Keras để xây dựng mô hình CNN 1D (Mạng tích chập 1 chiều)
+from tensorflow.keras.models import Sequential # Khai báo mô hình dạng chuỗi (các lớp xếp chồng liên tiếp)
+from tensorflow.keras.layers import (
+    Input,                   # Lớp xác định cấu trúc dữ liệu đầu vào (Input Shape)
+    Conv1D,                  # Lớp tích chập 1D (dùng để trích xuất đặc trưng chuỗi/chuỗi thời gian)
+    MaxPooling1D,            # Lớp giảm kích thước đặc trưng (downsampling) lấy giá trị lớn nhất
+    BatchNormalization,      # Lớp chuẩn hóa theo batch giúp ổn định và tăng tốc huấn luyện
+    GlobalAveragePooling1D,  # Lớp tính trung bình toàn cục giúp gom đặc trưng và giảm biến số
+    Dense,                   # Lớp kết nối đầy đủ (Fully Connected) để tính toán phân loại
+    Dropout                  # Lớp ngắt kết nối ngẫu nhiên một số node để hạn chế học vẹt (Overfitting)
+)
+
+# In thông tin phiên bản các thư viện quan trọng
+print("NumPy      :", np.__version__)
+print("Pandas     :", pd.__version__)
+print("TensorFlow :", tf.__version__)
+
+# Kiểm tra xem hệ thống có nhận diện và kích hoạt được GPU để tăng tốc hay không
+print(
+    "GPU:",
+    tf.config.list_physical_devices("GPU")
+)
+
+print("\nCELL 1 COMPLETED")
